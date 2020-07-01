@@ -1,0 +1,94 @@
+---
+title: "Data Visualization with R"
+subtitle: "A brief introduction"
+author: "Jeremy Mack"
+institute: "Lehigh University"
+date: "2020/02/28"
+output:
+  xaringan::moon_reader:
+    css: ["custom.css", "default-fonts.css"]
+    seal: false
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current%"
+---
+class: center, middle, inverse, title-slide
+
+## Data Visualization with R
+#### Alex Pacheco and Jeremy Mack
+#### March 20, 2020
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+---
+```{r include=FALSE}
+library(igraph)
+library(networkD3)
+library(htmlwidgets)
+library(tibble)
+library(htmltools)
+data <- tibble(
+  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
+  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
+)
+
+p <- simpleNetwork(data, height=100, width=100,        
+                   Source = 1,                 # column number of source
+                   Target = 2,                 # column number of target
+                   linkDistance = 10,          # distance between node. Increase this value to have more space between nodes
+                   charge = -900,                # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
+                   fontSize = 14,               # size of the node names
+                   fontFamily = "serif",       # font og node names
+                   linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
+                   nodeColour = "#69b3a2",     # colour of nodes, MUST be a common colour for the whole graph
+                   opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
+                   zoom = T                    # Can you zoom on the figure?
+)
+
+p
+```
+
+.tiny2[
+```{r eval=FALSE}
+# Libraries
+library(igraph)
+library(networkD3)
+library(htmlwidgets)
+library(tibble)
+
+# Create a dataset:
+data <- tibble(
+  from=c("A", "A", "B", "D", "C", "D", "E", "B", "C", "D", "K", "A", "M"),
+  to=c("B", "E", "F", "A", "C", "A", "B", "Z", "A", "C", "A", "B", "K")
+)
+
+# Create a simple network diagram
+
+p <- simpleNetwork(
+  data,
+  height=100, width=100,  # sizing
+  Source = 1,             # column number of source
+  Target = 2,             # column number of target
+  linkDistance = 10,      # distance between nodes
+  charge = -900,          # strength of the node repulsion (negative value) or attraction (positive value)
+  fontSize = 14,          # size of the node names
+  fontFamily = "serif",   # font og node names
+  linkColour = "#666",    # colour of edges, MUST be a common colour for the whole graph
+  nodeColour = "#69b3a2", # colour of nodes, MUST be a common colour for the whole graph
+  opacity = 0.9,          # opacity of nodes. 0=transparent. 1=no transparency
+  zoom = T                # Can you zoom on the figure?
+)
+```
+]
+
+---
+#### Network Visualization
+```{r echo=FALSE}
+includeHTML("networkInteractive.html")
+
+```
